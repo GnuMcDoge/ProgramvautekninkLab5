@@ -36,6 +36,7 @@ public class DataCollectionBuilder {
 
 	public DataCollection getResult() {
 		matchDataByDays();
+		System.out.println("gnu");
 		transformToOtherResolution();
 		compressListsToSingleValues();
 		
