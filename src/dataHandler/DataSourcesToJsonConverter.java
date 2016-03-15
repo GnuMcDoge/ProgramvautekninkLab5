@@ -4,6 +4,7 @@ import com.owlike.genson.Genson;
 
 import dataCollection.DataCollectionBuilder;
 import dataCollection.Resolution;
+import dataSources.DataSource;
 import dataSources.FootballArena;
 import dataSources.FootballGoalsSource;
 import dataSources.TemperatureSource;
@@ -37,6 +38,10 @@ public class DataSourcesToJsonConverter {
 
 	}
 
+	public DataSourcesToJsonConverter(String Ds1, String Ds2) {
+
+	}
+
 	/**
 	 * Collect data from the given sources and return it as a string
 	 * 
@@ -45,5 +50,18 @@ public class DataSourcesToJsonConverter {
 	public String getString() {
 
 		return jsonString;
+	}
+}
+
+class GNU {
+	public static DataSource getGNU(String gnu) {
+		switch (gnu.toLowerCase()) {
+		case "football":
+			return new FootballGoalsSource();
+		case "temperature":
+			return new TemperatureSource("GNU");
+		default:
+			throw new RuntimeException("Invalid datasource!");
+		}
 	}
 }

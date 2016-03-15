@@ -17,7 +17,7 @@ import dataHandler.PrettyJsonFormatter;
 @WebServlet("/ServletCollectData")
 public class ServletCollectData extends HttpServlet {
 	PrettyJsonFormatter formatter = new PrettyJsonFormatter();
-	DataSourcesToJsonConverter jsonGetter = new DataSourcesToJsonConverter();
+	DataSourcesToJsonConverter jsonGetter;
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -35,7 +35,13 @@ public class ServletCollectData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String Ds1 = request.getParameter("Ds1");
+		String Ds2 = request.getParameter("Ds2");
+		
+		
+		
 		String result = jsonGetter.getString();
+		
 
 		if ("true".equalsIgnoreCase(request.getParameter("pretty"))) {
 
