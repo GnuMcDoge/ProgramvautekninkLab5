@@ -17,12 +17,12 @@ public class FootballGoalsSource implements DataSource {
 
 	@Override
 	public String getName() {
-		return "Antal mål per matchdag i fotbollsallsvenskan";
+		return "Antal moal per matchdag i fotbollsallsvenskan";
 	}
 
 	@Override
 	public String getUnit() {
-		return "Antal mål";
+		return "Antal mï¿½l";
 	}
 
 	@Override
