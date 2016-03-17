@@ -6,7 +6,7 @@ import dataCollection.DataCollectionBuilder;
 import dataCollection.Resolution;
 import dataSources.DataSource;
 import dataSources.FootballArena;
-import dataSources.FootballGoalsSource;
+import dataSources.FootballGoalSource;
 import dataSources.TemperatureSource;
 
 public class DataSourcesToJsonConverter {
@@ -18,7 +18,7 @@ public class DataSourcesToJsonConverter {
 	 * 
 	 */
 	public DataSourcesToJsonConverter() {
-		this(new FootballGoalsSource(), new TemperatureSource(FootballArena.STROMVALLEN.getCityTemperatureURL()),
+		this(new FootballGoalSource(), new TemperatureSource(FootballArena.STROMVALLEN.getCityTemperatureURL()),
 				Resolution.DAY);
 	}
 
@@ -32,7 +32,7 @@ public class DataSourcesToJsonConverter {
 	 * @param res
 	 *            Resolution
 	 */
-	public DataSourcesToJsonConverter(FootballGoalsSource goalSource, TemperatureSource tempSource, Resolution res) {
+	public DataSourcesToJsonConverter(FootballGoalSource goalSource, TemperatureSource tempSource, Resolution res) {
 		DataCollectionBuilder dcBuilder = new DataCollectionBuilder(goalSource, tempSource, res);
 		jsonString = new Genson().serialize(dcBuilder.getResult());
 
@@ -57,7 +57,7 @@ class GNU {
 	public static DataSource getGNU(String gnu) {
 		switch (gnu.toLowerCase()) {
 		case "football":
-			return new FootballGoalsSource();
+			return new FootballGoalSource();
 		case "temperature":
 			return new TemperatureSource("GNU");
 		default:
