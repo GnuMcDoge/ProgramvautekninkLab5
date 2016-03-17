@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataHandler.DataSourceFactory;
 import dataHandler.DataSourcesToJsonConverter;
 import dataHandler.PrettyJsonFormatter;
+import dataSources.DataSource;
 
 /**
  * Servlet implementation class ServletColectData
@@ -25,7 +27,7 @@ public class ServletCollectData extends HttpServlet {
 	 */
 	public ServletCollectData() {
 		super();
-
+		
 	}
 
 	/**
@@ -35,13 +37,17 @@ public class ServletCollectData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String Ds1 = request.getParameter("Ds1");
-		String Ds2 = request.getParameter("Ds2");
+		String ds1 = request.getParameter("Ds1");
+		String ds2 = request.getParameter("Ds2");
 		
+		DataSource source1 = DataSourceFactory.get(ds1);
+
+	
 		
-		
+
+
 		String result = jsonGetter.getString();
-		
+
 
 		if ("true".equalsIgnoreCase(request.getParameter("pretty"))) {
 

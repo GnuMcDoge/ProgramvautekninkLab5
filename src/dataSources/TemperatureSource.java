@@ -9,6 +9,13 @@ public class TemperatureSource implements DataSource{
 	private String csvFileToRead;
 	private CsvToMapParser parser;
 	private	Map<String, Object> data;
+	private String url = "http://opendata-download-metobs.smhi.se/explore/zip?parameterIds=2&stationId=107420&period=corrected-archive&includeMetadata=false";
+	
+	
+	public TemperatureSource(){
+		
+	}
+	
 	public TemperatureSource(String source){
 		this.csvFileToRead = source;
 	}
@@ -19,7 +26,7 @@ public class TemperatureSource implements DataSource{
 
 	@Override
 	public String getName(){
-		return "SMHI Temperature from Gävle";
+		return "SMHI Temperature from Gï¿½vle";
 	}
 
 	@Override
@@ -44,7 +51,7 @@ public class TemperatureSource implements DataSource{
 	}
 
 	private Map<String, Object> prepareDataFromURL() {
-		UrlFetcher fetcher = new UrlFetcher(csvFileToRead);
+		UrlFetcher fetcher = new UrlFetcher(url);
 		parser = new CsvToMapParser(fetcher.getContent());
 		return parser.getResultFromString();
 	}
