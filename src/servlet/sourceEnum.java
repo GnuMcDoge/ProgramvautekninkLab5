@@ -3,7 +3,7 @@ package servlet;
 import dataSources.DataSource;
 import dataSources.FootballGoalSource;
 import dataSources.FootballSpectatorSource;
-import dataSources.TemperatureSource;
+import dataSources.TemperatureSource_OLD;
 
 public enum sourceEnum {
 	
@@ -25,7 +25,7 @@ public enum sourceEnum {
 	TEMPERATURE{
 		
 		public DataSource getSource(){
-			return new TemperatureSource();
+			return new TemperatureSource_OLD();
 		}
 	 
 	};

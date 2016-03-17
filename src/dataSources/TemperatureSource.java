@@ -1,72 +1,67 @@
 package dataSources;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.TreeMap;
 
+/**
+ * 
+ * 
+ * @author Rashed Davodi
+ * @author Mikael Ivarsson
+ * @version 29-02-16
+ *
+ */
 
 public class TemperatureSource implements DataSource{
-	private String csvFileToRead;
-	private CsvToMapParser parser;
-	private	Map<String, Object> data;
-	private String url = "http://opendata-download-metobs.smhi.se/explore/zip?parameterIds=2&stationId=107420&period=corrected-archive&includeMetadata=false";
-	
+	private String name;
+	private String unit;
 	
 	public TemperatureSource(){
 		
+		
 	}
 	
-	public TemperatureSource(String source){
-		this.csvFileToRead = source;
+	
+	public  TemperatureSource (String name, String unit){
+		this.name = name;
+		this.unit = unit;
+		
 	}
 
-	public void setDataSource(String source){
-		this.csvFileToRead = source;
+	/**
+	 * Return unit
+	 * 
+	 */
+	@Override
+	public String getUnit(){
+		return "C";
 	}
-
+	
+	/**
+	 * Return name
+	 */
 	@Override
 	public String getName(){
-		return "SMHI Temperature from G�vle";
+
+		return "Temperature";
 	}
 
+	/**
+	 * Collects data from an online source and returns the data.
+	 * @return a map with dates and temperature.
+	 */
 	@Override
-	public String getUnit() {
-		return "Celsius";
+	public Map<LocalDate, Double> getData() {
+		UrlFetcher url = new UrlFetcher("http://opendata-download-metobs.smhi.se/explore/zip?parameterIds=2&stationId=107420&period=corrected-archive&includeMetadata=false");
+
+	
+		CSVParser parser = new CSVParser(url.getContent());
+
+		return parser.getResult("Y");
 	}
 
-	@Override
-	public Map<LocalDate, Double> getData(){
-		if(isOnlineUrl(csvFileToRead)){
-			data = prepareDataFromURL();
-		}
-		else{
-			data = prepareDataFromFile();
-		}
-		return finalResultsFrom(data);
-	}
-
-	private Map<String, Object> prepareDataFromFile() {
-		parser = new CsvToMapParser(csvFileToRead);
-		return parser.getResultFromFile();
-	}
-
-	private Map<String, Object> prepareDataFromURL() {
-		UrlFetcher fetcher = new UrlFetcher(url);
-		parser = new CsvToMapParser(fetcher.getContent());
-		return parser.getResultFromString();
-	}
-
-	private Map<LocalDate, Double> finalResultsFrom(Map<String, Object> data) {
-		Map<LocalDate, Double> result = new TreeMap<>();
-		LocalDate date = LocalDate.of(2014, 1, 1);
-		while(date.getYear() == 2014){
-			String dateKey = date.toString();
-			result.put(date, Double.valueOf(data.get(dateKey).toString()));
-			date = date.plusDays(1);
-		}
-		return result;
-	}	
-	private boolean isOnlineUrl(String sourceUrl) {
-		return sourceUrl.substring(0, 4).matches("http");
-	}
 }

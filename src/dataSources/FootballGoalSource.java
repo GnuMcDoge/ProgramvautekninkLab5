@@ -22,7 +22,7 @@ public class FootballGoalSource implements DataSource {
 
 	@Override
 	public String getUnit() {
-		return "Antal m�l";
+		return "Stycken";
 	}
 
 	@Override

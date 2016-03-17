@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CsvToMapParser {
+public class CsvToMapParser_OLD {
 	private final String csvFileToRead;
 	private BufferedReader reader;
 
@@ -19,7 +19,7 @@ public class CsvToMapParser {
 	private String desiredYear = "2014";
 	private Map<String, Object> data;
 
-	public CsvToMapParser(String csvFileToRead) {
+	public CsvToMapParser_OLD(String csvFileToRead) {
 		this.csvFileToRead = csvFileToRead;
 	}
 

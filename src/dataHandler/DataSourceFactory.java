@@ -3,6 +3,7 @@ package dataHandler;
 import dataSources.DataSource;
 import dataSources.FootballGoalSource;
 import dataSources.FootballSpectatorSource;
+import dataSources.RainfallSource;
 import dataSources.TemperatureSource;
 
 public class DataSourceFactory {
@@ -27,6 +28,9 @@ public class DataSourceFactory {
 		
 		else if (source.equalsIgnoreCase("temperature"))
 			return new TemperatureSource();
+		
+		else if (source.equalsIgnoreCase("rainfall"))
+			return new RainfallSource();
 		
 		return null;
 	}

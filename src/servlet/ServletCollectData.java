@@ -36,15 +36,13 @@ public class ServletCollectData extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		String ds1 = request.getParameter("Ds1");
 		String ds2 = request.getParameter("Ds2");
 		
-		DataSource source1 = DataSourceFactory.get(ds1);
-
-	
 		
-
+		jsonGetter = new DataSourcesToJsonConverter(ds1,ds2);
+		
 
 		String result = jsonGetter.getString();
 

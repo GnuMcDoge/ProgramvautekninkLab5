@@ -7,7 +7,7 @@ import dataCollection.Resolution;
 import dataSources.DataSource;
 import dataSources.FootballArena;
 import dataSources.FootballGoalSource;
-import dataSources.TemperatureSource;
+import dataSources.TemperatureSource_OLD;
 
 public class DataSourcesToJsonConverter {
 	String jsonString;
@@ -18,7 +18,7 @@ public class DataSourcesToJsonConverter {
 	 * 
 	 */
 	public DataSourcesToJsonConverter() {
-		this(new FootballGoalSource(), new TemperatureSource(FootballArena.STROMVALLEN.getCityTemperatureURL()),
+		this(new FootballGoalSource(), new TemperatureSource_OLD(FootballArena.STROMVALLEN.getCityTemperatureURL()),
 				Resolution.DAY);
 	}
 
@@ -32,14 +32,22 @@ public class DataSourcesToJsonConverter {
 	 * @param res
 	 *            Resolution
 	 */
-	public DataSourcesToJsonConverter(FootballGoalSource goalSource, TemperatureSource tempSource, Resolution res) {
+	public DataSourcesToJsonConverter(FootballGoalSource goalSource, TemperatureSource_OLD tempSource, Resolution res) {
 		DataCollectionBuilder dcBuilder = new DataCollectionBuilder(goalSource, tempSource, res);
 		jsonString = new Genson().serialize(dcBuilder.getResult());
 
 	}
 
-	public DataSourcesToJsonConverter(String Ds1, String Ds2) {
+	public DataSourcesToJsonConverter(String ds1, String ds2) {
+		
 
+		DataSource source1 = DataSourceFactory.get(ds1);
+		DataSource source2 = DataSourceFactory.get(ds2);
+		
+		DataCollectionBuilder dcBuilder = new DataCollectionBuilder(source1, source2);
+		jsonString = new Genson().serialize(dcBuilder.getResult()); 
+	
+		
 	}
 
 	/**
@@ -53,15 +61,4 @@ public class DataSourcesToJsonConverter {
 	}
 }
 
-class GNU {
-	public static DataSource getGNU(String gnu) {
-		switch (gnu.toLowerCase()) {
-		case "football":
-			return new FootballGoalSource();
-		case "temperature":
-			return new TemperatureSource("GNU");
-		default:
-			throw new RuntimeException("Invalid datasource!");
-		}
-	}
-}
+

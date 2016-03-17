@@ -34,7 +34,7 @@ public class FootballSpectatorSourceTest {
 	@Test
 	public void testGetData() {
 		
-		System.out.println(fss.getData());
+		
 	}
 
 }

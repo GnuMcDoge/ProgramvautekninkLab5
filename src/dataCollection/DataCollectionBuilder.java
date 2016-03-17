@@ -17,6 +17,11 @@ public class DataCollectionBuilder {
 	private Map<String, MatchedDataPair> finalResult;
 	private String title;
 
+	public DataCollectionBuilder(DataSource xData,DataSource yData) {
+		this(xData,yData,Resolution.DAY);
+		
+	}
+	
 	public DataCollectionBuilder(DataSource xData, DataSource yData, Resolution resolution) {
 		this.xData = xData;
 		this.yData = yData;
@@ -25,6 +30,7 @@ public class DataCollectionBuilder {
 		resultData = new HashMap<>();
 	}
 
+	
 	public DataCollectionBuilder(DataSource xData, DataSource yData, Resolution resolution, String title) {
 		this(xData, yData, resolution);
 		this.title = title;
@@ -36,7 +42,6 @@ public class DataCollectionBuilder {
 
 	public DataCollection getResult() {
 		matchDataByDays();
-		System.out.println("gnu");
 		transformToOtherResolution();
 		compressListsToSingleValues();
 		
