@@ -11,6 +11,8 @@ import dataSources.TemperatureSource_OLD;
 
 public class DataSourcesToJsonConverter {
 	String jsonString;
+	DataSource source1;
+	DataSource source2; 
 
 	/**
 	 * Stander constructor for DataSourcesToJsonConverter() which have given
@@ -39,11 +41,9 @@ public class DataSourcesToJsonConverter {
 	}
 
 	public DataSourcesToJsonConverter(String ds1, String ds2) {
-		
 
-		DataSource source1 = DataSourceFactory.get(ds1);
-		DataSource source2 = DataSourceFactory.get(ds2);
-		
+		source1 = DataSourceFactory.getDataSource(ds1.toUpperCase());
+		source2 = DataSourceFactory.getDataSource(ds2.toUpperCase());
 		DataCollectionBuilder dcBuilder = new DataCollectionBuilder(source1, source2);
 		jsonString = new Genson().serialize(dcBuilder.getResult()); 
 	

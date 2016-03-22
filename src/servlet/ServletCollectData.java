@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataHandler.DataSourceFactory;
+import dataHandler.DataSourceFactory_OLD;
 import dataHandler.DataSourcesToJsonConverter;
 import dataHandler.PrettyJsonFormatter;
 import dataSources.DataSource;
@@ -21,13 +21,16 @@ public class ServletCollectData extends HttpServlet {
 	PrettyJsonFormatter formatter = new PrettyJsonFormatter();
 	DataSourcesToJsonConverter jsonGetter;
 	private static final long serialVersionUID = 1L;
+	private String ds1;
+	private String ds2;
+	private String result;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ServletCollectData() {
 		super();
-		
+
 	}
 
 	/**
@@ -36,16 +39,18 @@ public class ServletCollectData extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String ds1 = request.getParameter("Ds1");
-		String ds2 = request.getParameter("Ds2");
-		
-		
-		jsonGetter = new DataSourcesToJsonConverter(ds1,ds2);
-		
 
-		String result = jsonGetter.getString();
 
+		try{
+			ds1 = request.getParameter("ds1");
+			ds2 = request.getParameter("ds2");
+			jsonGetter = new DataSourcesToJsonConverter(ds1,ds2);
+			result = jsonGetter.getString();
+		}
+		catch(NullPointerException e){
+			
+			result = "<h1 align=center>Error 404</h1><h2 align=center>You killed (the) Link.<br> Ganadorf won.</h2>";
+		}
 
 		if ("true".equalsIgnoreCase(request.getParameter("pretty"))) {
 

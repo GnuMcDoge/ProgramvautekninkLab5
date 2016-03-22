@@ -17,6 +17,11 @@ public class DataCollectionBuilder {
 	private Map<String, MatchedDataPair> finalResult;
 	private String title;
 
+	
+	
+	
+	
+	
 	public DataCollectionBuilder(DataSource xData,DataSource yData) {
 		this(xData,yData,Resolution.DAY);
 		
