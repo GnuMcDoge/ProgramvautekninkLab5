@@ -55,7 +55,8 @@ public class ServletCollectData extends HttpServlet {
 		}
 		catch(NullPointerException | IllegalArgumentException e){
 			
-			result = "<h1 align=center>Error 404</h1><h2 align=center>You killed (the) Link.<br> Ganadorf won.</h2>";
+			result = "<h1 align=center>Error 404</h1><h2 align=center>You killed (the) Link.<br> Ganondorf won.</h2>"
+					+"<h3 align=center><br>Avaliable parameters are: <br> goals, spectators, temperature, rainfall, pretty</h3>";
 		}
 
 		if ("true".equalsIgnoreCase(request.getParameter("pretty"))) {

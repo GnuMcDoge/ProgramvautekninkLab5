@@ -2,17 +2,7 @@ package dataHandler;
 
 import static org.junit.Assert.*;
 
-import java.awt.HeadlessException;
-import java.io.StringWriter;
-import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.mockito.Mockito;
-
-import com.owlike.genson.Genson;
 
 import dataSources.DataSource;
 import dataSources.FootballGoalSource;
@@ -25,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FactoryTest {
-
 
 	private DataSource ds;
 
