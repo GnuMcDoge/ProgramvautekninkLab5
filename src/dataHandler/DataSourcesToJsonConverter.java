@@ -1,5 +1,7 @@
 package dataHandler;
 
+import javax.xml.crypto.Data;
+
 import com.owlike.genson.Genson;
 
 import dataCollection.DataCollectionBuilder;
@@ -7,12 +9,13 @@ import dataCollection.Resolution;
 import dataSources.DataSource;
 import dataSources.FootballArena;
 import dataSources.FootballGoalSource;
+import dataSources.TemperatureSource;
 import dataSources.TemperatureSource_OLD;
 
 public class DataSourcesToJsonConverter {
 	String jsonString;
 	DataSource source1;
-	DataSource source2; 
+	DataSource source2;
 
 	/**
 	 * Stander constructor for DataSourcesToJsonConverter() which have given
@@ -20,8 +23,7 @@ public class DataSourcesToJsonConverter {
 	 * 
 	 */
 	public DataSourcesToJsonConverter() {
-		this(new FootballGoalSource(), new TemperatureSource_OLD(FootballArena.STROMVALLEN.getCityTemperatureURL()),
-				Resolution.DAY);
+		this(new FootballGoalSource(), new TemperatureSource(), Resolution.DAY);
 	}
 
 	/**
@@ -34,20 +36,16 @@ public class DataSourcesToJsonConverter {
 	 * @param res
 	 *            Resolution
 	 */
-	public DataSourcesToJsonConverter(FootballGoalSource goalSource, TemperatureSource_OLD tempSource, Resolution res) {
-		DataCollectionBuilder dcBuilder = new DataCollectionBuilder(goalSource, tempSource, res);
-		jsonString = new Genson().serialize(dcBuilder.getResult());
+	public DataSourcesToJsonConverter(DataSource ds1, DataSource ds2) {
+
+		this(ds1, ds2, Resolution.DAY);
 
 	}
 
-	public DataSourcesToJsonConverter(String ds1, String ds2) {
+	public DataSourcesToJsonConverter(DataSource ds1, DataSource ds2, Resolution res) {
+		DataCollectionBuilder dcBuilder = new DataCollectionBuilder(ds1, ds2, res);
+		jsonString = new Genson().serialize(dcBuilder.getResult());
 
-		source1 = DataSourceFactory.getDataSource(ds1.toUpperCase());
-		source2 = DataSourceFactory.getDataSource(ds2.toUpperCase());
-		DataCollectionBuilder dcBuilder = new DataCollectionBuilder(source1, source2);
-		jsonString = new Genson().serialize(dcBuilder.getResult()); 
-	
-		
 	}
 
 	/**
@@ -56,9 +54,6 @@ public class DataSourcesToJsonConverter {
 	 * @return String
 	 */
 	public String getString() {
-
 		return jsonString;
 	}
 }
-
-
